@@ -1,0 +1,56 @@
+
+
+using namespace std;
+
+// Estructura para representar un equipo
+struct Equipo {
+  string nombre;
+  int goles_a_favor;
+  int goles_en_contra;
+  int puntos;
+};
+
+// Función para calcular los puntos de un equipo
+int calcular_puntos(Equipo& equipo) {
+  equipo.puntos = 3 * equipo.goles_a_favor - equipo.goles_en_contra;
+  return equipo.puntos;
+}
+
+// Función para ordenar equipos por puntos
+bool ordenar_por_puntos(Equipo& equipo1, Equipo& equipo2) {
+  return calcular_puntos(equipo1) > calcular_puntos(equipo2);
+}
+
+int main() {
+  // Vector para almacenar equipos
+  vector<Equipo> equipos;
+
+  // Agregar equipos al vector
+  Equipo equipo1 = {"Equipo 1", 10, 5};
+  Equipo equipo2 = {"Equipo 2", 8, 7};
+  Equipo equipo3 = {"Equipo 3", 6, 6};
+
+  equipos.push_back(equipo1);
+  equipos.push_back(equipo2);
+  equipos.push_back(equipo3);
+
+  // Calcular puntos para cada equipo
+  for (Equipo& equipo : equipos) {
+    calcular_puntos(equipo);
+  }
+
+  // Ordenar equipos por puntos
+  sort(equipos.begin(), equipos.end(), ordenar_por_puntos);
+
+  // Mostrar la tabla de posiciones
+  cout << "Tabla de posiciones:" << endl;
+  for (Equipo& equipo : equipos) {
+    cout << equipo.nombre << " - " << equipo.puntos << " puntos" << endl;
+  }
+
+  // Pronosticar ganador
+  Equipo ganador = equipos[0];
+  cout << "El equipo ganador pronosticado es: " << ganador.nombre << endl;
+
+  return 0;
+}
